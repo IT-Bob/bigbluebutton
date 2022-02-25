@@ -1,0 +1,21 @@
+- block:
+    - name: Check if locale configuration is correct
+      ansible.builtin.shell:
+        cmd: cat /etc/default/locale | grep ^LANG=
+      changed_when: False
+      register: locale
+      failed_when: locale.stdout != 'LANG=en_US.UTF-8'
+  rescue:
+    - name: Install language pack
+      ansible.builtin.apt:
+        name: language-pack-en
+        update_cache: yes
+        state: present
+      become: yes
+    - name: Ensure locales 'en_US.UTF-8' are set
+      ansible.builtin.shell:
+        cmd: update-locale LANG=en_US.UTF-8
+      become: yes
+    - name: Reboot the server
+      ansible.builtin.reboot:
+      become: yes

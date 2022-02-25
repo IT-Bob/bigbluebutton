@@ -8,5 +8,15 @@
 - name: BigBlueButton installation
   hosts: all
   tasks:
+    - name: Check locales
+      ansible.builtin.include_tasks:
+        file: tasks/locales.yml
+        apply:
+          tags: locales
+      tags: locales
     - name: Check prerequisites for BigBlueButton installation
-      ansible.builtin.include_tasks: tasks/prerequisites.yml
+      ansible.builtin.include_tasks:
+        file: tasks/prerequisites.yml
+        apply:
+          tags: check
+      tags: check
