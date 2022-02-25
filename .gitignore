@@ -1,2 +1,7 @@
+# ansible
+hosts/prod
+host_vars/
+keys/
+
 # vagrant
 .vagrant
