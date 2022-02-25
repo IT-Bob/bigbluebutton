@@ -1,0 +1,20 @@
+# vi: set filetype=yaml :
+---
+all:
+  hosts:
+    bbb:
+      ansible_port: 2222
+  children:
+    VM:
+      children:
+        Vagrant:
+          hosts:
+            bbb
+          vars:
+            ansible_user: vagrant
+            ansible_ssh_private_key_file: >-
+              '{{ lookup("env", "HOME") }}/.vagrant.d/insecure_private_key'
+      vars:
+        ansible_host: localhost
+        ansible_ssh_common_args: >-
+          '-o "StrictHostKeyChecking=no" -o "UserKnownHostsFile /dev/null"'

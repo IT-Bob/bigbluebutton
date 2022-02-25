@@ -1,0 +1,12 @@
+---
+#
+# Installation of BigBlueButton on a Ubuntu 18.04 (bionic) server.
+#
+# https://docs.bigbluebutton.org/2.4/install.html#before-you-install
+#
+
+- name: BigBlueButton installation
+  hosts: all
+  tasks:
+    - name: Check prerequisites for BigBlueButton installation
+      ansible.builtin.include_tasks: tasks/prerequisites.yml
