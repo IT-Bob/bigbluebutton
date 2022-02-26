@@ -17,6 +17,5 @@
   become: yes
 - name: Create Greenlight administrator account
   ansible.builtin.shell:
-    cmd: >-
-      docker exec greenlight-v2 bundle exec rake admin:create["{{ greenlight_admin_name }}","{{ greenlight_admin_email }}","{{ greenlight_admin_password }}","admin"]
+    cmd: 'docker exec greenlight-v2 bundle exec rake user:create["{{ greenlight_admin_name }}","{{ greenlight_admin_email }}","{{ greenlight_admin_password }}","admin"]'
   become: yes
