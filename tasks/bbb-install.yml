@@ -11,10 +11,10 @@
     url: https://ubuntu.bigbluebutton.org/bbb-install.sh
     dest: /tmp/bbb-install.sh
   become: yes
-    #- name: Run the installation script
-    #  ansible.builtin.shell:
-    #    cmd: "bash /tmp/bbb-install.sh -w -g -v bionic-240 -s {{ fqdn }} -e {{ le_email }}"
-    #  become: yes
+- name: Run the installation script
+  ansible.builtin.shell:
+    cmd: "bash /tmp/bbb-install.sh -w -g -v bionic-240 -s {{ fqdn }} -e {{ le_email }}"
+  become: yes
 - name: Create Greenlight administrator account
   ansible.builtin.shell:
     cmd: >-
