@@ -3,7 +3,9 @@
 # Download and run the BigBlueButton installation script.
 #
 # The host needs to have the following variables set:
-# - fqdn: FQDN of the server
+# - fqdn: bigbluebutton server FQDN
+# - coturn_fqdn: coturn server FQDN
+# - coturn_token: coturn server token
 # - le_email: email for Let's Encrypt
 #
 - name: Download the installation script
@@ -13,7 +15,13 @@
   become: yes
 - name: Run the installation script
   ansible.builtin.shell:
-    cmd: "bash /tmp/bbb-install.sh -w -g -v bionic-240 -s {{ fqdn }} -e {{ le_email }} -c {{ coturn_fqdn }}:{{ coturn_token }}"
+    cmd: >-
+      bash /tmp/bbb-install.sh
+      -w -g
+      -v bionic-240
+      -s '{{ fqdn }}'
+      -e '{{ le_email }}'
+      -c '{{ coturn_fqdn }}:{{ coturn_token }}'
   become: yes
 - name: Create Greenlight administrator account
   ansible.builtin.shell:
