@@ -1,0 +1,11 @@
+- name: Download coturn installation script
+  ansible.builtin.get_url:
+    url: https://ubuntu.bigbluebutton.org/bbb-install.sh
+    dest: /tmp/bbb-install.sh
+- name: Run coturn installation script
+  ansible.builtin.shell:
+    cmd: >-
+      bash /tmp/bbb-install.sh
+      -c "{{ coturn_fqdn }}:{{ coturn_token }}"
+      -e "{{ le_email }}"
+  become: yes
