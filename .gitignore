@@ -1,5 +1,5 @@
 # ansible
-hosts/prod
+hosts/
 host_vars/
 keys/
 
