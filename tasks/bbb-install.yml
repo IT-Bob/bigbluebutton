@@ -1,0 +1,22 @@
+---
+# 
+# Download and run the BigBlueButton installation script.
+#
+# The host needs to have the following variables set:
+# - fqdn: FQDN of the server
+# - le_email: email for Let's Encrypt
+#
+- name: Download the installation script
+  ansible.builtin.get_url:
+    url: https://ubuntu.bigbluebutton.org/bbb-install.sh
+    dest: /tmp/bbb-install.sh
+  become: yes
+    #- name: Run the installation script
+    #  ansible.builtin.shell:
+    #    cmd: "bash /tmp/bbb-install.sh -w -g -v bionic-240 -s {{ fqdn }} -e {{ le_email }}"
+    #  become: yes
+- name: Create Greenlight administrator account
+  ansible.builtin.shell:
+    cmd: >-
+      docker exec greenlight-v2 bundle exec rake admin:create["{{ greenlight_admin_name }}","{{ greenlight_admin_email }}","{{ greenlight_admin_password }}","admin"]
+  become: yes

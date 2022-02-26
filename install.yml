@@ -20,3 +20,9 @@
         apply:
           tags: check
       tags: check
+    - name: Install BigBlueButton
+      ansible.builtin.include_tasks:
+        file: tasks/bbb-install.yml
+        apply:
+          tags: install
+      tags: install
