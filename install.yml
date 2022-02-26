@@ -5,15 +5,18 @@
 # https://docs.bigbluebutton.org/2.4/install.html#before-you-install
 #
 
-- name: BigBlueButton installation
+- name: Locales configuration
   hosts: all
   tasks:
-    - name: Check locales
+    - name: Check and config locales
       ansible.builtin.include_tasks:
         file: tasks/locales.yml
         apply:
           tags: locales
       tags: locales
+- name: BigBlueButton installation
+  hosts: Bigbluebutton_servers
+  tasks:
     - name: Check prerequisites for BigBlueButton installation
       ansible.builtin.include_tasks:
         file: tasks/prerequisites.yml
