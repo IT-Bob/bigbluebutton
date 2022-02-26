@@ -1,6 +1,7 @@
 # ansible
 hosts/
 host_vars/
+group_vars/
 keys/
 
 # vagrant
