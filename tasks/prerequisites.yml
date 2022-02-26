@@ -10,6 +10,12 @@
 # use `--skip-tags prod` when deploying to a test server.
 #
 
+- name: Check if locale configuration is correct
+  ansible.builtin.shell:
+    cmd: cat /etc/default/locale | grep ^LANG=
+  changed_when: False
+  register: locale
+  failed_when: locale.stdout != 'LANG=en_US.UTF-8'
 - name: check if the server supports IPV6
   ansible.builtin.shell:
     cmd: ip addr | grep "inet6 ::1/128 scope host"
