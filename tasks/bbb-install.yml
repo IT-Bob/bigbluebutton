@@ -23,7 +23,12 @@
       -e '{{ le_email }}'
       -c '{{ coturn_fqdn }}:{{ coturn_token }}'
   become: yes
+# Does not fail if the user already exists (and the command returns 4)
 - name: Create Greenlight administrator account
   ansible.builtin.shell:
     cmd: 'docker exec greenlight-v2 bundle exec rake user:create["{{ greenlight_admin_name }}","{{ greenlight_admin_email }}","{{ greenlight_admin_password }}","admin"]'
+  register: administrator_account
   become: yes
+  failed_when:
+    - administrator_account.rc != 0
+    - administrator_account.rc != 4
